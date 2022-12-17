@@ -5,7 +5,6 @@
 *@b: second value to be add
 *Return: Always 0 (Success)
 */
-
 int add(int a, int b)
 {
 	return (a + b);
