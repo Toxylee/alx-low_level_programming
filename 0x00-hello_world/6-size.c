@@ -1,12 +1,8 @@
 #include <stdio.h>
-
 /**
- *
- * main - Entry Point
- *
+ *main - Entry Point
  * Returns: Always 0 (Success)
  */
-
 int main(void)
 {
 	char c;
