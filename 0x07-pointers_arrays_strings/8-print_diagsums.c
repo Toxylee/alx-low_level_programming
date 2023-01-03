@@ -10,19 +10,18 @@
 
 void print_diagsums(int *a, int size)
 {
-	int sum1 = 0;
-	int sum2 = 0;
-	int row, y;
+	int sum1, sum2, y;
 
-	for(row = 0; row < size; row++)
+	sum1 = 0;
+	sum2 = 0;
+
+	for (y = 0; y < size; y++)
 	{
-		y = (row * y) + row;
-		sum1 += a[y];
+		sum1 = sum1 + a[y * size + y];
 	}
-	for(row = 1; row <= size; row++)
+	for (y = size - 1; y >= 0; y--)
 	{
-		i = (row * size) - row;
-		sum2 += a[y];
+		sum2 += a[y * size + (size - y - 1)];
 	}
 	printf("%d, %d\n", sum1, sum2);
 }
