@@ -1,57 +1,54 @@
 #include "lists.h"
 
 /**
- * insert_node - insert node at given index
- * @temp: ptr to nth position node in doubly linked list
- * @n: node data
- * Return: address of inserted node
+ * insert_dnodeint_at_index - inserts new node at
+ * a given position
+ * @h: head of the list
+ * @idx: index of the new node
+ * @n: value of the new node
+ * Return: the address of the new node, or NULL if it failed
  */
-dlistint_t *insert_node(dlistint_t *temp, int n)
-{
-	dlistint_t *new;
 
-	new = malloc(sizeof(dlistint_t));
-	if (!new)
-		return (NULL);
-	new->n = n;
-
-	new->next = temp;
-	new->prev = temp->prev;
-	temp->prev->next = new;
-	temp->prev = new;
-
-	return (new);
-}
-
-/**
- * insert_dnodeint_at_index - create and insert node at nth index
- * @h: pointer to head of list
- * @idx: index
- * @n: node data
- * Return: address of inserted node, or NULL if failed
- */
 dlistint_t *insert_dnodeint_at_index(dlistint_t **h, unsigned int idx, int n)
 {
-	dlistint_t *temp;
+	dlistint_t *new;
+	dlistint_t *head;
+	unsigned int i;
 
-	if (!h)
-		return (NULL);
-	/* insert at beginning */
+	new = NULL;
 	if (idx == 0)
-		return (add_dnodeint(h, n));
-
-	/* insert in the middle of list */
-	temp = *h;
-	while ((idx != 0) && (temp->next))
+		new = add_dnodeint(h, n);
+	else
 	{
-		idx -= 1;
-		temp = temp->next;
-		if (idx == 0)
-			return (insert_node(temp, n));
+		head = *h;
+		i = 1;
+		if (head != NULL)
+			while (head->prev != NULL)
+				head = head->prev;
+		while (head != NULL)
+		{
+			if (i == idx)
+			{
+				if (head->next == NULL)
+					new = add_dnodeint_end(h, n);
+				else
+				{
+					new = malloc(sizeof(dlistint_t));
+					if (new != NULL)
+					{
+						new->n = n;
+						new->next = head->next;
+						new->prev = head;
+						head->next->prev = new;
+						head->next = new;
+					}
+				}
+				break;
+			}
+			head = head->next;
+			i++;
+		}
 	}
 
-	/* insert at the end of list if idx is one after last node */
-	if (idx == 1)
-		return (add_dnodeint_end(h, n));
-	return (NULL);
+	return (new);
 }

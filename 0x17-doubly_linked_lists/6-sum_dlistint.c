@@ -1,7 +1,7 @@
 #include "lists.h"
 
 /**
- * sum_dlistint - get the sum of all the data(d) of a
+ * sum_dlistint - get the sum of all the data(n) of a
  * doubly linked list
  * @head: the head node
  *
@@ -17,7 +17,7 @@ int sum_dlistint(dlistint_t *head)
 
 	while (head != NULL)
 	{
-		sum += head->d;
+		sum += head->n;
 		head = head->next;
 	}
 	return (sum);
